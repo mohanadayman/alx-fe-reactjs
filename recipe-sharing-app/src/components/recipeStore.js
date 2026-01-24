@@ -9,5 +9,15 @@ export const useRecipeStore = create(set => ({
     })),
     deleteRecipe: (recipeId) => set(state => ({
         recipes: state.recipes.filter(recipe => recipe.id !== recipeId)
-    }))
+    })),
+
+    searchTerm: '',
+    filteredRecipes: [],
+    setSearchTerm: (term) => set(state => {
+        const filtered = state.recipes.filter(recipe =>
+            recipe.title.toLowerCase().includes(term.toLowerCase()) ||
+            recipe.description.toLowerCase().includes(term.toLowerCase())
+        );
+        return { searchTerm: term, filteredRecipes: filtered };
+    }),
 }));
