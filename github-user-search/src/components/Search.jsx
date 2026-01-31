@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { searchUsers } from '../services/githubService'
+import { searchUsers as fetchUserData } from '../services/githubService'
 
 function Search({ onSearch }) {
     const [username, setUsername] = useState('')
@@ -26,7 +26,7 @@ function Search({ onSearch }) {
                 location: location.trim(),
                 minRepos: minRepos ? parseInt(minRepos) : null,
             }
-            const data = await searchUsers(criteria, 1)
+            const data = await fetchUserData(criteria, 1)
             setUsers(data.items || [])
             setTotalCount(data.total_count || 0)
             if (typeof onSearch === 'function') onSearch(data)
@@ -48,7 +48,7 @@ function Search({ onSearch }) {
                 location: location.trim(),
                 minRepos: minRepos ? parseInt(minRepos) : null,
             }
-            const data = await searchUsers(criteria, nextPage)
+            const data = await fetchUserData(criteria, nextPage)
             setUsers([...users, ...(data.items || [])])
             setCurrentPage(nextPage)
         } catch (err) {
