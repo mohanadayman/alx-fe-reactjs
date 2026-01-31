@@ -10,3 +10,29 @@ export const fetchUserData = async (username) => {
     throw error
   }
 }
+
+export const searchUsers = async (criteria, page = 1) => {
+  try {
+    const { username, location, minRepos } = criteria
+    const queries = []
+
+    if (username) queries.push(username)
+    if (location) queries.push(`location:${location}`)
+    if (minRepos) queries.push(`repos:>=${minRepos}`)
+
+    const q = queries.join(' ')
+    const params = {
+      q,
+      page,
+      per_page: 10,
+      sort: 'repositories',
+      order: 'desc',
+    }
+
+    const response = await axios.get(`${GITHUB_API_BASE}/search/users`, { params })
+    return response.data
+  } catch (error) {
+    throw error
+  }
+}
+
