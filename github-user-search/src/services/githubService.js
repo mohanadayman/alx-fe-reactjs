@@ -30,6 +30,7 @@ export const searchUsers = async (criteria, page = 1) => {
     }
 
     const response = await axios.get(`${GITHUB_API_BASE}/search/users`, { params })
+    const response = await axios.get('https://api.github.com/search/users?q=' + q, { params })
     return response.data
   } catch (error) {
     throw error
