@@ -1,7 +1,8 @@
-import HomePage from './components/HomePage.jsx'
-import './App.css'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import RecipeDetail from './components/RecipeDetail.jsx';
+import HomePage from './components/HomePage';
+import RecipeDetail from './components/RecipeDetail';
+import './App.css'
+
 
 function App() {
   return (
